@@ -1,5 +1,5 @@
 const formatearDinero = (valor) =>{
-    const formatter = new Intl.NumberFormat('es-CL',{
+    const formatter = new Intl.NumberFormat('en-US',{
         style: 'currency',
         currency: 'CLP'
     })
