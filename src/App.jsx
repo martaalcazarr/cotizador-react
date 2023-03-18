@@ -1,11 +1,22 @@
-import {useState}  from 'react'
+import {useState, useEffect}  from 'react'
 import Header from "./components/Header"
 import Button from './components/Button';
-import {formatearDinero} from './helpers'
+import {formatearDinero, calcularTotalPagar} from './helpers'
 
 function App() {
   const [cantidad, setCantidad] = useState(2500000)
   const [meses, setMeses] = useState(6)
+  const [total, setTotal] = useState(0)
+  const [pago, setPago] = useState(0)
+
+  useEffect(() =>{
+    const resultadoTotalPagar = calcularTotalPagar(cantidad, meses)
+    setTotal(resultadoTotalPagar)
+  }, [cantidad, meses])
+
+  useEffect(() =>{
+    setPago(total/meses)
+  }, [total])
 
   const MIN = 0;
   const MAX = 5000000
@@ -85,10 +96,10 @@ function App() {
       {meses}{' '}Meses
     </p>
     <p className='text-xl text-gray-500 text-center font-bold'>
-      Total a pagar
+      Total a pagar: {''} {formatearDinero(total)}
     </p>
     <p className='text-xl text-gray-500 text-center font-bold'>
-      Mensual
+      {formatearDinero(pago)} {' '}Mensual
     </p>
     </div>
    </div>
